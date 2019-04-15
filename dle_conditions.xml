@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dleplugin>
+	<name>DLE Conditions Lite - условия для шаблонизатора DataLife Engine</name>
+	<description>Добавляем условия для шаблонизатора [ https://lazydev.pro ]</description>
+	<icon></icon>
+	<version></version>
+	<dleversion>13</dleversion>
+	<versioncompare>greater</versioncompare>
+	<upgradeurl></upgradeurl>
+	<filedelete>0</filedelete>
+	<needplugin></needplugin>
+	<mysqlinstall><![CDATA[]]></mysqlinstall>
+	<mysqlupgrade><![CDATA[]]></mysqlupgrade>
+	<mysqlenable><![CDATA[]]></mysqlenable>
+	<mysqldisable><![CDATA[]]></mysqldisable>
+	<mysqldelete><![CDATA[]]></mysqldelete>
+	<phpinstall><![CDATA[]]></phpinstall>
+	<phpupgrade><![CDATA[]]></phpupgrade>
+	<phpenable><![CDATA[]]></phpenable>
+	<phpdisable><![CDATA[]]></phpdisable>
+	<phpdelete><![CDATA[]]></phpdelete>
+	<file name="engine/modules/show.short.php">
+		<operation action="after">
+			<searchcode><![CDATA[$news_found = TRUE;]]></searchcode>
+			<replacecode><![CDATA[$tpl->copy_template = dleConditions::construct()->realize($tpl->copy_template, $row);]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/show.full.php">
+		<operation action="after">
+			<searchcode><![CDATA[define( 'NEWS_ID', $row['id'] );]]></searchcode>
+			<replacecode><![CDATA[$tpl->copy_template = dleConditions::construct()->realize($tpl->copy_template, $row);]]></replacecode>
+		</operation>
+		<operation action="after">
+			<searchcode><![CDATA[while ( $related = $db->get_row() ) {]]></searchcode>
+			<replacecode><![CDATA[$tpl2->copy_template = dleConditions::construct()->realize($tpl2->copy_template, $related);]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/modules/show.custom.php">
+		<operation action="after">
+			<searchcode><![CDATA[$news_found = true;]]></searchcode>
+			<replacecode><![CDATA[$tpl->copy_template = dleConditions::construct()->realize($tpl->copy_template, $row);]]></replacecode>
+		</operation>
+	</file>
+	<file name="engine/classes/templates.class.php">
+		<operation action="before">
+			<searchcode><![CDATA[class dle_template {]]></searchcode>
+			<replacecode><![CDATA[require_once ENGINE_DIR . '/lazydev/dle_conditions/dle_conditions.php';]]></replacecode>
+		</operation>
+	</file>
+</dleplugin>
