@@ -147,7 +147,7 @@ class dleConditions
                 break;
         }
 
-        return $bool === true ? $return : false;
+        return $bool === true ? true : false;
     }
 
     public static function returnType($var)
